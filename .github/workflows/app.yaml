@@ -11,7 +11,7 @@ on:
       - build
   workflow_dispatch:
   issues:
-    type:
+    types:
       - opened
       - closed
   
