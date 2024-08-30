@@ -24,3 +24,4 @@ jobs:
                 required-labels: automerge
                 commit-title: "Auto-Merged by Github Actions"
 
+# test pull request auto merge
