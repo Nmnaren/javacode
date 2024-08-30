@@ -1,0 +1,25 @@
+name: Auto merge 
+
+on:
+    pull_request:
+        types:
+            - opened
+            - labeled
+            - reopened
+        branches:
+            - main
+jobs:
+    auto-merge:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v2
+            - name: Auto Merge PR
+              uses: peter-evans/Merge-pull-request@v2
+              with:
+                token: ${{secrets.GITHUB_TOKEN}}
+                merge-method: squash
+                required-labels: automerge
+                commit-title: "Auto-Merged by Github Actions"
+
