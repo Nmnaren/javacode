@@ -15,8 +15,8 @@ jobs:
         steps:
             - name: checkout code
               uses: actions/checkout@v2
-            - name: Auto Merge PR
-              uses: peter-evans/Merge-pull-request@v2
+            - name: Enable GitHub auto-merge
+              uses: peter-evans/enable-pull-request-automerge@v2
               with:
                 token: ${{secrets.GITHUB_TOKEN}}
                 merge-method: squash
