@@ -10,6 +10,10 @@ on:
       - main
       - sonarpulltest
   workflow_dispatch:
+  issues:
+    types:
+      - opened
+      - closed
 
 jobs:
   build:
