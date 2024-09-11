@@ -20,6 +20,7 @@ jobs:
     - name: Get Jira Tickets
       id: jira_tickets
       run: |
+        PROJECT_KEY="narendra"  # Replace with your project key
         response=$(curl -s -X GET \
           -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
           -H "Content-Type: application/json" \
@@ -27,10 +28,11 @@ jobs:
 
         echo "Raw Jira API response:"
         echo "$response"
+        echo "Jira Tickets in Progress:"
+        echo "$response" | jq '.issues[] | {key: .key, summary: .fields.summary}'
 
     - name: Log Jira Issue Keys
       run: |
         echo "Jira Tickets:"
         echo "$response" | jq '.issues[] | {key: .key, summary: .fields.summary}'
-        project= "narendra" AND status=In Progress
         
