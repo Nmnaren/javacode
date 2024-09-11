@@ -23,7 +23,7 @@ jobs:
         response=$(curl -s -X GET \
           -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
           -H "Content-Type: application/json" \
-          "${{ secrets.JIRA_BASE_URL }}/rest/api/2/search?jql=assignee=${{ secrets.JIRA_USER_EMAIL }}+AND+status=Open")
+          "${{ secrets.JIRA_BASE_URL }}/rest/api/2/search?jql=assignee=\"${{ secrets.JIRA_USER_EMAIL }}\"+AND+status=Open")
 
         echo "Raw Jira API response:"
         echo "$response"
