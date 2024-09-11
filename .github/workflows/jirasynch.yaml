@@ -13,14 +13,16 @@ jobs:
         
 
         steps:
-        - name: Get jira Tickets
+        - name: Get Jira Tickets
           id: jira_tickets
           run: |
             response=$(curl -s -X GET \
             -u ${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }} \
             -H "Content-Type: application/json" \
-            "${{ secrets.JIRA_BASE_URL }}/rest/api/2/search?jql=assignee=${{ secrets.JIRA_USER_EMAIL }}+AND+status=Open")
-            echo "$response" | jq '.issues[] | {key: .key, summary: .fields.summary}'
+            ${{ secrets.JIRA_BASE_URL }}/rest/api/2/search?jql=assignee=${{ secrets.JIRA_USER_EMAIL }}+AND+status=Open")
+            echo "Raw Jira API response:"
+            echo "$response"
+
           env:
             JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
             JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
