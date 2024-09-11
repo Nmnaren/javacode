@@ -20,7 +20,7 @@ jobs:
     - name: Get Jira Tickets
       id: jira_tickets
       run: |
-        PROJECT_KEY="narendra"  # Replace with your project key
+        PROJECT="narendra"  # Replace with your project key
         response=$(curl -s -X GET \
           -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
           -H "Content-Type: application/json" \
