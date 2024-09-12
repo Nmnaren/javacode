@@ -2,6 +2,9 @@ name: Notify Slack on Pull Request
 
 on:
   pull_request:
+    branches:
+      - main
+      - build
     types: [opened, closed]
 
 jobs:
