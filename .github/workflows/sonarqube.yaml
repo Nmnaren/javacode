@@ -54,3 +54,5 @@ jobs:
         with:
           name: sonar-reports
           path: ~/.sonar/cache/
+
+          # testing with codeowners

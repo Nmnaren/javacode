@@ -1,0 +1,38 @@
+name: Fetch Jira Tickets
+
+on:
+  push:
+    branches:
+      - build
+      - main
+  workflow_dispatch:
+
+jobs:
+  fetch-jira-issues:
+    runs-on: ubuntu-latest
+
+    env:
+      JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+      JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+
+    steps:
+    - name: Get Jira Tickets
+      id: jira_tickets
+      run: |
+        PROJECT_KEY="NAR"  # Replace with your project key
+        response=$(curl -s -X GET \
+          -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          "${{ secrets.JIRA_BASE_URL }}/rest/api/2/search?jql=assignee=\"${{ secrets.JIRA_USER_EMAIL }}\"+AND+status=Open")
+
+        echo "Raw Jira API response:"
+        echo "$response"
+        echo "Jira Tickets in Progress:"
+        echo "$response" | jq '.issues[] | {key: .key, summary: .fields.summary}'
+
+    - name: Log Jira Issue Keys
+      run: |
+        echo "Jira Tickets:"
+        echo "$response" | jq '.issues[] | {key: .key, summary: .fields.summary}'
+        

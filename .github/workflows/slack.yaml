@@ -1,0 +1,19 @@
+name: Notify Slack on Pull Request
+
+on:
+  pull_request:
+    types: [opened, closed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Notify Slack
+      uses: slackapi/slack-github-action@v1.23.0
+      with:
+        slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        payload: |
+          {
+            "text": "A new pull request has been created by *${{ github.actor }}* titled *${{ github.event.pull_request.title }}*. <${{ github.event.pull_request.html_url }}|View Pull Request>"
+          }
